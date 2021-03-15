@@ -10,154 +10,6 @@ import time
 import os
 import copy
 
-class vgg_1_decoder(nn.Module):
-    
-    def __init__(self):
-        decoder_1 = nn.Sequential( # Sequential,
-	                            nn.ReflectionPad2d((1, 1, 1, 1)),
-	                            nn.Conv2d(64,3,(3, 3)),
-                                )
-    
-    def forward(x):
-        x = decoder_1(x)
-        return x
-
-class vgg_2_decoder(nn.Module):
-
-    def __init__(self):
-        decoder_2 = nn.Sequential( # Sequential,
-                                nn.ReflectionPad2d((1, 1, 1, 1)),
-                                nn.Conv2d(128,64,(3, 3)),
-                                nn.ReLU(),
-                                nn.UpsamplingNearest2d(scale_factor=2),
-                                nn.ReflectionPad2d((1, 1, 1, 1)),
-                                nn.Conv2d(64,64,(3, 3)),
-                                nn.ReLU(),
-                                nn.ReflectionPad2d((1, 1, 1, 1)),
-                                nn.Conv2d(64,3,(3, 3)),
-                            )
-    
-    def forward(x):
-        x = decoder_2(x)
-        return x
-
-class vgg_3_decoder(nn.Module):
-
-    def __init__(self):
-        decoder_3 = nn.Sequential( # Sequential,
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(256,128,(3, 3)),
-                    nn.ReLU(),
-                    nn.UpsamplingNearest2d(scale_factor=2),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(128,128,(3, 3)),
-                    nn.ReLU(),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(128,64,(3, 3)),
-                    nn.ReLU(),
-                    nn.UpsamplingNearest2d(scale_factor=2),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(64,64,(3, 3)),
-                    nn.ReLU(),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(64,3,(3, 3)),
-                )
-    
-    def forward(x):
-        x = decoder_3(x)
-        return x
-
-class vgg_4_decoder(nn.Module):
-
-    def __init__(self):
-        decoder_4 = nn.Sequential( # Sequential,
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(512,256,(3, 3)),
-                    nn.ReLU(),
-                    nn.UpsamplingNearest2d(scale_factor=2),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(256,256,(3, 3)),
-                    nn.ReLU(),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(256,256,(3, 3)),
-                    nn.ReLU(),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(256,256,(3, 3)),
-                    nn.ReLU(),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(256,128,(3, 3)),
-                    nn.ReLU(),
-                    nn.UpsamplingNearest2d(scale_factor=2),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(128,128,(3, 3)),
-                    nn.ReLU(),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(128,64,(3, 3)),
-                    nn.ReLU(),
-                    nn.UpsamplingNearest2d(scale_factor=2),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(64,64,(3, 3)),
-                    nn.ReLU(),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(64,3,(3, 3)),
-                )
-    
-    def forward(x):
-        x = decoder_4(x)
-        return x
-
-class vgg_5_decoder(nn.Module):
-
-    def __init__(self):
-        decoder_5 = nn.Sequential( # Sequential,
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(512,512,(3, 3)),
-                    nn.ReLU(),
-                    nn.UpsamplingNearest2d(scale_factor=2),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(512,512,(3, 3)),
-                    nn.ReLU(),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(512,512,(3, 3)),
-                    nn.ReLU(),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(512,512,(3, 3)),
-                    nn.ReLU(),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(512,256,(3, 3)),
-                    nn.ReLU(),
-                    nn.UpsamplingNearest2d(scale_factor=2),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(256,256,(3, 3)),
-                    nn.ReLU(),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(256,256,(3, 3)),
-                    nn.ReLU(),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(256,256,(3, 3)),
-                    nn.ReLU(),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(256,128,(3, 3)),
-                    nn.ReLU(),
-                    nn.UpsamplingNearest2d(scale_factor=2),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(128,128,(3, 3)),
-                    nn.ReLU(),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(128,64,(3, 3)),
-                    nn.ReLU(),
-                    nn.UpsamplingNearest2d(scale_factor=2),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(64,64,(3, 3)),
-                    nn.ReLU(),
-                    nn.ReflectionPad2d((1, 1, 1, 1)),
-                    nn.Conv2d(64,3,(3, 3)),
-                )
-    
-    def forward(x):
-        x = decoder_5(x)
-        return x
-
 class model_selector(nn.Module):
     def __init__(self, weights_path,layer = 5, pretrained = True, train_decoder = False):
         super(model_selector, self).__init__()
@@ -168,16 +20,76 @@ class model_selector(nn.Module):
         
         if(self.num_layer == 1):
             self.encoder = nn.Sequential(*features[:4])
-            self.decoder = vgg_1_decoder()
+            self.decoder = nn.Sequential( # Sequential,
+	                            nn.ReflectionPad2d((1, 1, 1, 1)),
+	                            nn.Conv2d(64,3,(3, 3)),
+                                )
         elif(self.num_layer == 2):
-            self.encoder = nn.ModuleList(features[:9])
-            self.decoder = vgg_2_decoder()
+            self.encoder = nn.Sequential(*features[:9])
+            self.decoder = nn.Sequential( # Sequential,
+                                nn.ReflectionPad2d((1, 1, 1, 1)),
+                                nn.Conv2d(128,64,(3, 3)),
+                                nn.ReLU(),
+                                nn.UpsamplingNearest2d(scale_factor=2),
+                                nn.ReflectionPad2d((1, 1, 1, 1)),
+                                nn.Conv2d(64,64,(3, 3)),
+                                nn.ReLU(),
+                                nn.ReflectionPad2d((1, 1, 1, 1)),
+                                nn.Conv2d(64,3,(3, 3)),
+                            )
         elif(self.num_layer == 3):
-            self.encoder = nn.ModuleList(features[:18])
-            self.decoder = vgg_3_decoder()
+            self.encoder = nn.Sequential(*features[:18])
+            self.decoder = nn.Sequential( # Sequential,
+                    nn.ReflectionPad2d((1, 1, 1, 1)),
+                    nn.Conv2d(256,128,(3, 3)),
+                    nn.ReLU(),
+                    nn.UpsamplingNearest2d(scale_factor=2),
+                    nn.ReflectionPad2d((1, 1, 1, 1)),
+                    nn.Conv2d(128,128,(3, 3)),
+                    nn.ReLU(),
+                    nn.ReflectionPad2d((1, 1, 1, 1)),
+                    nn.Conv2d(128,64,(3, 3)),
+                    nn.ReLU(),
+                    nn.UpsamplingNearest2d(scale_factor=2),
+                    nn.ReflectionPad2d((1, 1, 1, 1)),
+                    nn.Conv2d(64,64,(3, 3)),
+                    nn.ReLU(),
+                    nn.ReflectionPad2d((1, 1, 1, 1)),
+                    nn.Conv2d(64,3,(3, 3)),
+                )
         elif(self.num_layer == 4):
-            self.encoder = nn.ModuleList(features[:27])
-            self.decoder = vgg_4_decoder()
+            self.encoder = nn.Sequential(*features[:27])
+            self.decoder = nn.Sequential( # Sequential,
+                    nn.ReflectionPad2d((1, 1, 1, 1)),
+                    nn.Conv2d(512,256,(3, 3)),
+                    nn.ReLU(),
+                    nn.UpsamplingNearest2d(scale_factor=2),
+                    nn.ReflectionPad2d((1, 1, 1, 1)),
+                    nn.Conv2d(256,256,(3, 3)),
+                    nn.ReLU(),
+                    nn.ReflectionPad2d((1, 1, 1, 1)),
+                    nn.Conv2d(256,256,(3, 3)),
+                    nn.ReLU(),
+                    nn.ReflectionPad2d((1, 1, 1, 1)),
+                    nn.Conv2d(256,256,(3, 3)),
+                    nn.ReLU(),
+                    nn.ReflectionPad2d((1, 1, 1, 1)),
+                    nn.Conv2d(256,128,(3, 3)),
+                    nn.ReLU(),
+                    nn.UpsamplingNearest2d(scale_factor=2),
+                    nn.ReflectionPad2d((1, 1, 1, 1)),
+                    nn.Conv2d(128,128,(3, 3)),
+                    nn.ReLU(),
+                    nn.ReflectionPad2d((1, 1, 1, 1)),
+                    nn.Conv2d(128,64,(3, 3)),
+                    nn.ReLU(),
+                    nn.UpsamplingNearest2d(scale_factor=2),
+                    nn.ReflectionPad2d((1, 1, 1, 1)),
+                    nn.Conv2d(64,64,(3, 3)),
+                    nn.ReLU(),
+                    nn.ReflectionPad2d((1, 1, 1, 1)),
+                    nn.Conv2d(64,3,(3, 3)),
+                )
         elif(self.num_layer == 5):
             self.encoder = nn.Sequential(*features[:36])
             self.decoder = nn.Sequential( # Sequential,
