@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Mar 14 10:37:58 2021
-
-@author: Charan
-"""
-
 import os
 import numpy as np
 import cv2
@@ -24,11 +16,7 @@ from tqdm import tqdm
 debug = False
 
 def get_device():
-    if torch.cuda.is_available():
-        device = 'cuda:0'
-    else:
-        device = 'cpu'
-    return device
+    return 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
 device = get_device()
 

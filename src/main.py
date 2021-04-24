@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Mar 14 10:55:00 2021
-
-@author: Charan
-"""
-
 from model import model_selector
 from dataloader import create_dataloaders
 from train import train
@@ -13,11 +5,7 @@ import torch
 import torch.nn as nn
 
 def get_device():
-    if torch.cuda.is_available():
-        device = 'cuda:0'
-    else:
-        device = 'cpu'
-    return device
+    return 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
 # def main(pathname, model_dict_path = "model.pth",clf = False):
 
@@ -34,9 +22,6 @@ print ("---Loaded data and model---")
 model = model.to(device)
 
 train(loaders, model)
-
-# main(data_dir, clf = True)
-
 
 
 
