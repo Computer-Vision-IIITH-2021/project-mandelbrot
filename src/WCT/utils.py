@@ -1,3 +1,4 @@
+#Data Loader for VGG
 import torch
 from torch.utils.serialization import load_lua
 from model import decoder1,decoder2,decoder3,decoder4,decoder5,encoder1,encoder2,encoder3,encoder4,encoder5
